@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      {% load staticfiles %}
+      <link rel="stylesheet" href="{% static 'login/css/index.css' %}"media="screen" title="no title"  charset="utf-8">
+  </head>
+  <body>
+    <div class="container">
+      {% if messages %}
+      <ul class="errorFlash">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <h1>Registration</h1>
+      <div class="regForm">
+        <form action="/registration" method="POST">
+          {% csrf_token %}
+          <label for="f_name">First Name:</label><input type="text" name="f_name">
+          <label for="l_name">Last Name:</label><input type="text" name="l_name">
+          <label for="email">Email:</label><input type="text" name="email">
+          <label for="password">Password:</label><input type="text" name="password">
+          <label for="c_password">Confirm Password:</label><input type="text" name="c_password">
+          <input type="submit" value="Register">
+        </form>
+      </div>
+      <h1>Login</h1>
+      <div class="loginForm">
+        <form action="/login" method="POST">
+          {% csrf_token %}
+          <label for="loginEmail">Email:</label><input type="text" name="loginEmail">
+          <label for="loginPassword">Password:</label><input type="text" name="loginPassword">
+          <input type="submit" value="Login">
+        </form>
+      </div>
+
+
+
+    </div>
+  </body>
+</html>
