@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>destination</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'login/css/index.css' %}"media="screen" title="no title"  charset="utf-8">
+  </head>
+  <body>
+    <a href="/" class="logout">Log Out</a>
+    <a href="/home">Home</a>
+    <h1>{{ trip.destination}}</h1>
+    <ul>
+      <li>Planned By: {{trip.user_id.username}}</l1>
+      <li>Description: {{trip.description}}</l1>
+      <li>Travel Date From: {{trip.start_date|date:"M j Y"}}
+      <li>Trave Date To: {{trip.end_date|date:"M j Y"}}
+    </ul>
+    <h1>Other Users' joining the trip</h1>
+      <ul>
+        {% for joinee in joined %}
+        <li>{{joinee.username}}</li>
+        {% endfor %}
+      </ul>
+  </body>
+</html>

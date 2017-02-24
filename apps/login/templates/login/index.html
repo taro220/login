@@ -22,9 +22,8 @@
       <div class="regForm">
         <form action="/registration" method="POST">
           {% csrf_token %}
-          <label for="f_name">First Name:</label><input type="text" name="f_name">
-          <label for="l_name">Last Name:</label><input type="text" name="l_name">
-          <label for="email">Email:</label><input type="text" name="email">
+          <label for="name">Name:</label><input type="text" name="name">
+          <label for="username">Username:</label><input type="text" name="username">
           <label for="password">Password:</label><input type="text" name="password">
           <label for="c_password">Confirm Password:</label><input type="text" name="c_password">
           <input type="submit" value="Register">
@@ -34,7 +33,7 @@
       <div class="loginForm">
         <form action="/login" method="POST">
           {% csrf_token %}
-          <label for="loginEmail">Email:</label><input type="text" name="loginEmail">
+          <label for="loginEmail">Username:</label><input type="text" name="loginUsername">
           <label for="loginPassword">Password:</label><input type="text" name="loginPassword">
           <input type="submit" value="Login">
         </form>

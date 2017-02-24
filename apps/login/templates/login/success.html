@@ -3,9 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Success</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'login/css/index.css' %}"media="screen" title="no title"  charset="utf-8">
   </head>
   <body>
-    <h1>Success</h1>
+    <div class="container">
     {% if messages %}
     <ul class="messages">
       {% for message in messages %}
@@ -14,12 +19,75 @@
     </ul>
     {% endif %}
 
-    <h1> {{ name.f_name }}   {{ name.l_name }}  {{ name.email }}</h1>
+    <h1> Hello {{ request.session.name }} </h1>
+    <table>
+      <thead>
+        <tr>Your Trips</tr>
+        <tr>
+        <td>Destination</td>
+        <td>Travel Start Date</td>
+        <td>Travel End Date</td>
+        <td>Plan</td>
+      </tr>
+      </thead>
+      <tbody>
+        {% for each in user_trips %}
+        <tr>
+          <td><a href="/destination/{{each.id}}">{{each.destination}}</a></td>
+          <td>{{each.start_date|date:"M j Y"}}</td>
+          <td>{{each.end_date|date:"M j Y"}}</td>
+          <td>{{each.description}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+      <h1>Other Trips</h1>
+      <table>
+        <thead>
+          <td>Name</td>
+          <td>Destination</td>
+          <td>Travel Start Date</td>
+          <td>Travel End Date</td>
+          <td>Join</td>
+        </thead>
+      <tbody>
+        {% for trip in all_trips %}
+        <tr>
+          <td>{{trip.user_id.username}}</td>
+          <td><a href="/destination/{{trip.id}}">{{trip.destination}}</a></td>
+          <td>{{trip.start_date|date:"M j Y"}}</td>
+          <td>{{trip.end_date|date:"M j Y"}}</td>
+          <td>
+          {% with trip.join_id.all as joinee %}
+              {% if joinee %}
+                {% for each in joinee %}
+                  {% if request.session.sessionID == each.id %}
+                    You Joined This
+                  {% else %}
+                    <a href="/join/{{trip.id}}">Join</a>
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                <a href="/join/{{trip.id}}">Join</a>
+              {% endif %}
+          {% endwith %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      </table>
+
+
+
+
+
     <form action='/delete/{{name.id}}' method="post">
       {% csrf_token %}
       <input type="submit" value="Delete User">
     </form>
-    <a href="/">Log Out</a>
+    <a href="/" class="logout">Log Out</a>
+  </div>
 
+  <a href="/addTravel">Add Travel Plan</a>
   </body>
 </html>
